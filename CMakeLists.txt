@@ -1,19 +1,26 @@
-cmake_minimum_required(VERSION 3.20.1)
-project(LSM-KV)
+cmake_minimum_required(VERSION 3.20)
+project(MyLSMKV)
 
-set(CMAKE_CXX_STANDARD 17)
+
+set(CMAKE_BUILD_TYPE DEBUG)
+SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
+SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
+
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED OFF)
+set(CMAKE_C_COMPILER "/usr/bin/gcc")
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_COMPILER "/usr/bin/g++")
+
+# 开启ctest
+enable_testing()
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
-include_directories(${PROJECT_SOURCE_DIR}/include)
-include_directories(${PROJECT_SOURCE_DIR}/include/cache)
-link_directories(${PROJECT_SOURCE_DIR}/lib)
+include_directories(${PROJECT_SOURCE_DIR}/lsmkv)
 
-set(CMAKE_CXX_FLAGS "-g")
-
-# message(${PROJECT_SOURCE_DIR})
-
-add_subdirectory(src)
+add_subdirectory(lsmkv)
 add_subdirectory(test)
-

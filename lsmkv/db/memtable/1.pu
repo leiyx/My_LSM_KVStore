@@ -1,0 +1,29 @@
+@startuml
+class Arena {
+  + Arena();
+  + ~Arena()
+  + char* Allocate(size_t bytes);
+  + char* AllocateAlign(size_t bytes);
+  + size_t MemoryUsed() const;
+  - char* AllocateFallBack(size_t bytes);
+  - char* AllocateNewBlock(size_t bytes);
+  - char* alloc_ptr_;
+  - size_t alloc_bytes_remaining_;
+  - std::vector<char*> blocks_;
+  - std::atomic<size_t> memory_used_;
+}
+struct Node {
+  + Node* Next(int level)
+  + void SetNext(int level, Node* x)
+  + Key const key_;
+  + std::atomic<Node*> next_[1];
+}
+class SkipList {
+
+}
+class MemTable {
+
+}
+MemTable "1" *-- "1" SkipList
+SkipList "1" *-- "1" Arena
+@enduml
